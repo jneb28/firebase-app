@@ -2,9 +2,9 @@
     <div class="starwars">
         <v-container>
             <v-layout row wrap>
-                <v-flex v-for="i in 21" :key="people[i]" xs4>
+                <v-flex v-for="person in people" :key="person.name" xs4>
                     <v-card dark color="secondary" class="my-1 mx-2">
-                        <v-card-text>{{ people[i].name }}</v-card-text>
+                        <v-card-text>{{ person.name }}</v-card-text>
                     </v-card>
                 </v-flex>
             </v-layout>

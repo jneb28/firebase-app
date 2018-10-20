@@ -12,6 +12,11 @@ export default new Router({
       component: Home
     },
     {
+      path: "/starwars",
+      name: "starwars",
+      component: () => import("./views/Starwars.vue")
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
