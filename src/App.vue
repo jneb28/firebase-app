@@ -1,16 +1,65 @@
 <template>
   <div id="app">
     <v-app>
-      <v-toolbar app flat color="accent darken-1">
+
+
+
+      <v-card>
+        <v-navigation-drawer
+          app
+          v-model="drawer"
+          permanent
+          fixed
+          clipped
+        >
+          <v-toolbar flat class="transparent">   
+            <v-list class="pa-0">
+              <v-list-tile avatar>
+                <v-list-tile-avatar>
+                  <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                </v-list-tile-avatar>
+
+                <v-list-tile-content>
+                  <v-list-tile-title>John Leider</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-toolbar>
+
+          <v-list class="pt-0" dense>
+            <v-divider></v-divider>
+
+            <v-list-tile
+              v-for="item in items"
+              :key="item.title"
+            > <!-- @click="" -->
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+      </v-card>
+
+
+
+      <v-toolbar app flat color="accent darken-1" clipped-left>
+        <v-toolbar-title class="white--text text-xs-center">Git Gifts</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn flat><router-link to="/">Home</router-link></v-btn>
-          <v-btn flat><router-link to="/about">About</router-link></v-btn>
-          <v-btn flat><router-link to="/contact">Contact</router-link></v-btn>
-          <v-btn flat><router-link to="/starwars">Starwars</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/">Home</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/about">About</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/contact">Contact</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
         </v-toolbar-items>
       </v-toolbar>
       
+
+      <!-- justify-center -->
       <v-content>
         <v-container fluid>
           <router-view></router-view>
@@ -18,17 +67,19 @@
       </v-content>
 
 
-    <v-footer color="accent lighten-1" height="auto">
-      <v-layout justify-center row wrap>
-        <v-btn flat color="white" round><router-link to="/">Home</router-link></v-btn>
-        <v-btn flat color="white" round><router-link to="/about">About</router-link></v-btn>
-        <v-btn flat color="white" round><router-link to="/contact">Contact</router-link></v-btn>
-        <v-btn flat color="white" round><router-link to="/starwars">Starwars</router-link></v-btn>
-        <v-flex accent darken-1 py-3 text-xs-center white--text xs12>
-          &copy;2018 — <strong>Vuetify</strong>
-        </v-flex>
-      </v-layout>
-    </v-footer>
+
+      <v-footer app color="accent lighten-1" height="auto">
+        <v-layout justify-center row wrap>
+          <v-btn flat color="white" round><router-link class="white--text" to="/">Home</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/about">About</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/contact">Contact</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
+          <v-flex accent darken-1 py-3 text-xs-center white--text xs12>
+            &copy;2018 — <strong>Git Gifts</strong>
+          </v-flex>
+        </v-layout>
+      </v-footer>
+
 
 
     </v-app>
@@ -51,7 +102,17 @@
 
 <script>
 export default {
-  name: "app"
+  name: "app",
+  data() {
+    return {
+      drawer: true,
+      items: [
+        { title: "Home", icon: "dashboard" },
+        { title: "About", icon: "question_answer" }
+      ],
+      right: null
+    };
+  }
 };
 </script>
 
@@ -86,5 +147,4 @@ export default {
   color: #42b983;
 }
 */
-
 </style>
