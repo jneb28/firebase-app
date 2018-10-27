@@ -1,6 +1,6 @@
 <template>
     <div class="contact">
-        <h1>Contact Form</h1>
+        <h1>Create Account</h1>
         <v-container>
             <v-layout align-center justify-center row>
                 <v-flex xs6>
@@ -17,31 +17,22 @@
                         <v-text-field
                         v-model="email"
                         :error-messages="emailErrors"
-                        label="E-mail"
+                        label="Email"
                         required
                         @input="$v.email.$touch()"
                         @blur="$v.email.$touch()"
                         ></v-text-field>
-                        <v-select
-                        v-model="select"
-                        :items="items"
-                        :error-messages="selectErrors"
-                        label="Item"
-                        required
-                        @change="$v.select.$touch()"
-                        @blur="$v.select.$touch()"
-                        ></v-select>
                         <v-checkbox
                         v-model="checkbox"
                         :error-messages="checkboxErrors"
-                        label="Do you agree?"
+                        label="Accept terms and conditions?"
                         required
                         @change="$v.checkbox.$touch()"
                         @blur="$v.checkbox.$touch()"
                         ></v-checkbox>
 
-                        <v-btn @click="submit">submit</v-btn>
-                        <v-btn @click="clear">clear</v-btn>
+                        <v-btn @click="submit">Join</v-btn>
+                        <v-btn @click="clear">Reset</v-btn>
                     </form>
                 </v-flex>
             </v-layout>
@@ -67,7 +58,7 @@ export default {
     name: "",
     email: "",
     select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    items: ["Birthday", "Holiday", "Marriage", "Other"],
     checkbox: false
   }),
 

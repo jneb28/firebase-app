@@ -32,6 +32,7 @@
             <v-list-tile
               v-for="item in items"
               :key="item.title"
+              @click="$router.push({ path: `/${item.title}` })"
             > <!-- @click="" -->
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -70,7 +71,7 @@
 
       <v-footer app color="accent lighten-1" height="auto">
         <v-layout justify-center row wrap>
-          <v-btn flat color="white" round><router-link class="white--text" to="/">Home</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/home">Home</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/about">About</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/contact">Contact</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
@@ -108,7 +109,9 @@ export default {
       drawer: true,
       items: [
         { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
+        { title: "About", icon: "question_answer" },
+        { title: "Contact", icon: "person_add" },
+        { title: "Starwars", icon: "star" }
       ],
       right: null
     };
