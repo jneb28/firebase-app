@@ -32,7 +32,7 @@
             <v-list-tile
               v-for="item in items"
               :key="item.title"
-              @click="$router.push({ path: `/${item.title}` })"
+              @click="$router.push({ path: `/${item.link}` })"
             > <!-- @click="" -->
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -52,8 +52,7 @@
         <v-toolbar-title class="white--text text-xs-center">Git Gifts</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn flat><router-link class="white--text" to="/home">Home</router-link></v-btn>
-          <v-btn flat><router-link class="white--text" to="/about">About</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/">About</router-link></v-btn>
           <v-btn flat><router-link class="white--text" to="/join">Join</router-link></v-btn>
           <v-btn flat><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
         </v-toolbar-items>
@@ -62,7 +61,7 @@
 
       <!-- justify-center -->
       <v-content>
-        <v-container fluid>
+        <v-container>
           <router-view></router-view>
         </v-container>
       </v-content>
@@ -71,8 +70,7 @@
 
       <v-footer app color="accent lighten-1" height="auto">
         <v-layout justify-center row wrap>
-          <v-btn flat color="white" round><router-link class="white--text" to="/home">Home</router-link></v-btn>
-          <v-btn flat color="white" round><router-link class="white--text" to="/about">About</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/">About</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/join">Join</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
           <v-flex accent darken-1 py-3 text-xs-center white--text xs12>
@@ -85,20 +83,6 @@
 
     </v-app>
   </div>
-
-
-
-  <!--
-    <v-navigation-drawer app></v-navigation-drawer>
-
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/contact">Contact</router-link> |
-      <router-link to="/starwars">Starwars</router-link>
-    </div>
-    <router-view/>
-  -->
 </template>
 
 <script>
@@ -110,10 +94,9 @@ export default {
     return {
       drawer: true,
       items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" },
-        { title: "Join", icon: "person_add" },
-        { title: "Starwars", icon: "star" }
+        { title: "About", icon: "dashboard", link: "" },
+        { title: "Join", icon: "person_add", link: "join" },
+        { title: "Starwars", icon: "star", link: "starwars" }
       ],
       right: null,
       username: "Sign up for free!"
@@ -127,7 +110,6 @@ export default {
 };
 </script>
 
-
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -136,26 +118,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-/*
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-*/
 </style>
