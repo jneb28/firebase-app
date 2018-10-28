@@ -21,9 +21,9 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: "/contact",
-      name: "contact",
-      component: () => import("./views/Contact.vue")
+      path: "/join",
+      name: "join",
+      component: () => import("./views/Join.vue")
     },
     {
       path: "/starwars",

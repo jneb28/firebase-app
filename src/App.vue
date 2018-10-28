@@ -20,7 +20,7 @@
                 </v-list-tile-avatar>
 
                 <v-list-tile-content>
-                  <v-list-tile-title>John Leider</v-list-tile-title>
+                  <v-list-tile-title>{{ username }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
@@ -52,9 +52,9 @@
         <v-toolbar-title class="white--text text-xs-center">Git Gifts</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn flat><router-link class="white--text" to="/">Home</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/home">Home</router-link></v-btn>
           <v-btn flat><router-link class="white--text" to="/about">About</router-link></v-btn>
-          <v-btn flat><router-link class="white--text" to="/contact">Contact</router-link></v-btn>
+          <v-btn flat><router-link class="white--text" to="/join">Join</router-link></v-btn>
           <v-btn flat><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -73,7 +73,7 @@
         <v-layout justify-center row wrap>
           <v-btn flat color="white" round><router-link class="white--text" to="/home">Home</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/about">About</router-link></v-btn>
-          <v-btn flat color="white" round><router-link class="white--text" to="/contact">Contact</router-link></v-btn>
+          <v-btn flat color="white" round><router-link class="white--text" to="/join">Join</router-link></v-btn>
           <v-btn flat color="white" round><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
           <v-flex accent darken-1 py-3 text-xs-center white--text xs12>
             &copy;2018 — <strong>Git Gifts</strong>
@@ -102,6 +102,8 @@
 </template>
 
 <script>
+import { EventBus } from "./main.js";
+
 export default {
   name: "app",
   data() {
@@ -110,11 +112,17 @@ export default {
       items: [
         { title: "Home", icon: "dashboard" },
         { title: "About", icon: "question_answer" },
-        { title: "Contact", icon: "person_add" },
+        { title: "Join", icon: "person_add" },
         { title: "Starwars", icon: "star" }
       ],
-      right: null
+      right: null,
+      username: "Sign up for free!"
     };
+  },
+  mounted() {
+    EventBus.$on("username", data => {
+      this.username = "Welcome, " + data + "!";
+    });
   }
 };
 </script>
