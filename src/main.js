@@ -9,6 +9,13 @@ Vue.config.productionTip = false;
 
 export const EventBus = new Vue();
 
+Vue.directive("list-item", {
+  bind(el) {
+    //binding vnode
+    el.style.background = "#424242";
+  }
+});
+
 new Vue({
   router,
   store,
