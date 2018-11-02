@@ -12,7 +12,7 @@ export const EventBus = new Vue();
 Vue.directive("list-item", {
   bind(el) {
     //binding vnode
-    el.style.background = "#424242";
+    el.style.background = "#ac41f4";
   }
 });
 

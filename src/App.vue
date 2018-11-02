@@ -51,7 +51,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn flat><router-link class="white--text" to="/">About</router-link></v-btn>
+        <v-btn flat v-list-item><router-link class="white--text" to="/">About</router-link></v-btn>
         <v-btn flat><router-link class="white--text" to="/join">Join</router-link></v-btn>
         <v-btn flat><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
       </v-toolbar-items>
