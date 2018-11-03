@@ -1,16 +1,8 @@
 <template>
 <div id="app">
   <v-app>
-
-
-    <v-card>
-      <v-navigation-drawer
-          app
-          v-model="drawer"
-          permanent
-          fixed
-          clipped
-      >
+    <v-card v-if="isUser">
+      <v-navigation-drawer app v-model="drawer" permanent fixed clipped>
         <v-toolbar flat class="transparent">   
         <v-list class="pa-0">
             <v-list-tile avatar>
@@ -27,12 +19,8 @@
 
         <v-list class="pt-0" dense>
         <v-divider></v-divider>
-
-        <v-list-tile
-            v-for="item in items"
-            :key="item.title"
-            @click="$router.push({ path: `/${item.link}` })"
-        >
+        
+        <v-list-tile v-for="(item, index) in items.slice(3)" :key="index" @click="$router.push({ path: `/${item.link}` })">
           <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -45,13 +33,41 @@
       </v-navigation-drawer>
     </v-card>
 
+    <v-card v-else>
+      <v-navigation-drawer app v-model="drawer" permanent fixed clipped>
+        <v-toolbar flat class="transparent">   
+        <v-list class="pa-0">
+            <v-list-tile avatar>
+
+            <v-list-tile-content>
+                <v-list-tile-title>{{ username }}</v-list-tile-title>
+            </v-list-tile-content>
+            </v-list-tile>
+        </v-list>
+        </v-toolbar>
+
+        <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+        
+        <v-list-tile @click="$router.push({ path: `/${items[1].link}` })">
+          <v-list-tile-action>
+          <v-icon>{{ items[1].icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+          <v-list-tile-title>{{ items[1].title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+    </v-card>
 
     <v-toolbar app flat color="accent darken-1" clipped-left>
       <v-toolbar-title class="white--text text-xs-center">Git Gifts</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn flat v-list-item><router-link class="white--text" to="/">About</router-link></v-btn>
+        <v-btn flat v-active-nav><router-link class="white--text" to="/">About</router-link></v-btn>
         <v-btn flat><router-link class="white--text" to="/join">Join</router-link></v-btn>
         <v-btn flat><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
       </v-toolbar-items>
@@ -93,16 +109,21 @@ export default {
       items: [
         { title: "About", icon: "dashboard", link: "" },
         { title: "Join", icon: "person_add", link: "join" },
-        { title: "Starwars", icon: "star", link: "starwars" }
+        { title: "Starwars", icon: "star", link: "starwars" },
+        { title: "Create List", icon: "star", link: "" },
+        { title: "Edit List", icon: "star", link: "" },
+        { title: "Share List", icon: "star", link: "" }
       ],
       right: null,
-      username: "Sign up for free!"
+      username: "Sign up for free!",
+      isUser: false
     };
   },
 
   mounted() {
     EventBus.$on("username", data => {
       this.username = "Welcome, " + data + "!";
+      this.isUser = true;
     });
   }
 };

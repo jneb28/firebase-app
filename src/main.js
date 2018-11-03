@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 
 export const EventBus = new Vue();
 
-Vue.directive("list-item", {
+Vue.directive("active-nav", {
   bind(el) {
     //binding vnode
     el.style.background = "#ac41f4";
