@@ -1,14 +1,10 @@
 <template>
-<div class="join">
-  
-  <v-container>
-    <v-layout justify-center>
+  <div class="join">
+    <v-layout row wrap justify-center>
       <v-flex xs12>
         <h1>Join Git Gifts</h1>
       </v-flex>
-    </v-layout>
-    
-    <v-layout justify-center>
+      
       <v-flex xs6>
         <form @submit.prevent="submit">
           <v-text-field
@@ -62,8 +58,8 @@
         </form>
       </v-flex>
     </v-layout>
-  </v-container>
-</div>
+  </div>
+  
 </template>
 
 <script>

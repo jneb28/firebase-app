@@ -1,50 +1,45 @@
 <template>
-  <v-app dark>
-     <v-container>
-      <v-layout justify-center>
-        <v-flex xs12>
-          <h1>Add Gifts</h1>
-        </v-flex>
-      </v-layout>
-      
-      <v-layout justify-center>
-        <v-flex xs6>
-          <form @submit.prevent="submit">
-            <v-text-field
-            v-model.trim="$v.gift.$model"
-            :error-messages="giftErrors"
-            label="Gift Title"
-            required
-            @blur="$v.gift.$touch()"
-            ></v-text-field>
+  <div class="addgift">
+    <v-layout row wrap justify-center>
+      <v-flex xs12>
+        <h1>Add Gift</h1>
+      </v-flex>
+      <v-flex xs6>
+        <form @submit.prevent="submit">
+          <v-text-field
+          v-model.trim="$v.gift.$model"
+          :error-messages="giftErrors"
+          label="Gift Title"
+          required
+          @blur="$v.gift.$touch()"
+          ></v-text-field>
 
-            <v-text-field
-            v-model.trim.lazy="$v.price.$model"
-            :error-messages="priceErrors"
-            label="Price"
-            required
-            @blur="$v.price.$touch()"
-            ></v-text-field>
+          <v-text-field
+          v-model.trim.lazy="$v.price.$model"
+          :error-messages="priceErrors"
+          label="Price"
+          required
+          @blur="$v.price.$touch()"
+          ></v-text-field>
 
-            <v-text-field
-            v-model="$v.recipient.$model"
-            :error-messages="recipientErrors"
-            label="Recipient"
-            required
-            @blur="$v.recipient.$touch()"
-            ></v-text-field>
+          <v-text-field
+          v-model="$v.recipient.$model"
+          :error-messages="recipientErrors"
+          label="Recipient"
+          required
+          @blur="$v.recipient.$touch()"
+          ></v-text-field>
 
-            <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Add Gift</v-btn>
-            <v-btn @click="clear">Reset</v-btn>
+          <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Add Gift</v-btn>
+          <v-btn @click="clear">Reset</v-btn>
 
-            <p v-if="submitStatus === 'OK'">Gift added!</p>
-            <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-            <p v-if="submitStatus === 'PENDING'">Adding Gift...</p>
-          </form>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-app>
+          <p v-if="submitStatus === 'OK'">Gift added!</p>
+          <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
+          <p v-if="submitStatus === 'PENDING'">Adding Gift...</p>
+        </form>
+      </v-flex>
+    </v-layout>
+  </div>     
 </template>
 
 <script>
@@ -59,7 +54,7 @@ import {
 import { EventBus } from "../main.js";
 
 export default {
-  name: "AddGift",
+  name: "addgift",
 
   mixins: [validationMixin],
 
@@ -75,9 +70,9 @@ export default {
     recipient: "",
     submitStatus: null,
     giftObj: {
-      gift: this.gift,
-      price: this.price,
-      recipient: this.recipient
+      gift: "",
+      price: 0,
+      recipient: ""
     }
   }),
 
@@ -121,7 +116,12 @@ export default {
         this.submitStatus = "ERROR";
       } else {
         this.submitStatus = "PENDING";
+
+        this.giftObj.gift = this.gift;
+        this.giftObj.price = this.price;
+        this.giftObj.recipient = this.recipient;
         EventBus.$emit("giftObject", this.giftObj);
+
         setTimeout(() => {
           this.submitStatus = "OK";
         }, 1000);

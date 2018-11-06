@@ -1,6 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
 import About from "./views/About.vue";
+import Join from "./views/Join.vue";
+import Starwars from "./views/Starwars.vue";
+import AddList from "./components/AddList.vue";
+import AddGift from "./components/AddGift.vue";
 
 Vue.use(Router);
 
@@ -14,12 +18,16 @@ export default new Router({
     {
       path: "/join",
       name: "join",
-      component: () => import("./views/Join.vue")
+      component: Join
     },
     {
       path: "/starwars",
       name: "starwars",
-      component: () => import("./views/Starwars.vue")
+      components: {
+        default: Starwars,
+        addlist: AddList,
+        addgift: AddGift
+      }
     }
   ]
 });

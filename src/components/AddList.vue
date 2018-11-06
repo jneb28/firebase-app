@@ -1,34 +1,34 @@
 <template>
-  <v-app dark>
-     <v-container>
-      <v-layout justify-center>
-        <v-flex xs12>
-          <h1>New List</h1>
-        </v-flex>
-      </v-layout>
-      
-      <v-layout justify-center>
-        <v-flex xs6>
-          <form @submit.prevent="submit">
-            <v-text-field
-            v-model="$v.listTitle.$model"
-            :error-messages="titleErrors"
-            label="List Title"
-            required
-            @blur="$v.listTitle.$touch()"
-            ></v-text-field>
+  <div class="addlist">
+    <v-layout row wrap justify-center>
+      <v-flex xs12>
+        <h1>New List</h1>
+      </v-flex>
 
-            <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Create List</v-btn>
-            <v-btn @click="clear">Reset</v-btn>
 
-            <p v-if="submitStatus === 'OK'">List created!</p>
-            <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-            <p v-if="submitStatus === 'PENDING'">Creating List...</p>
-          </form>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-app>
+      <v-flex xs6>
+        <form @submit.prevent="submit">
+          <v-text-field
+          v-model="$v.listTitle.$model"
+          :error-messages="titleErrors"
+          label="List Title"
+          required
+          @blur="$v.listTitle.$touch()"
+          ></v-text-field>
+
+          <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Create List</v-btn>
+          <v-btn @click="clear">Reset</v-btn>
+
+          <p v-if="submitStatus === 'OK'">List created!</p>
+          <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
+          <p v-if="submitStatus === 'PENDING'">Creating List...</p>
+        </form>
+      </v-flex>
+    </v-layout>
+  </div>
+
+        
+     
 </template>
 
 <script>
@@ -38,7 +38,7 @@ import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import { EventBus } from "../main.js";
 
 export default {
-  name: "AddList",
+  name: "addlist",
 
   mixins: [validationMixin],
 

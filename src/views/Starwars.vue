@@ -1,62 +1,18 @@
 <template>
-  <v-app>
-    <v-container justify-center>
-
-
-
-
-      <v-layout justify-center row>
-        <v-flex>
-          <app-add-list></app-add-list>
-        </v-flex>
-      </v-layout>
-
-
-      <v-layout justify-center row>
-        <v-flex>
-          <app-add-gift></app-add-gift>
-        </v-flex>
-      </v-layout>
-
-
-
-      <!--
-      <v-layout justify-center row wrap>
-        <v-flex v-for="person in people" :key="person.name" xs4>
-          <v-card dark color="secondary" class="my-1 mx-2">
-            <v-card-text>{{ person.name }}</v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout justify-center row wrap>
-        <v-flex v-for="person in people" :key="person.name" xs4>
-          <v-card dark color="secondary" class="my-1 mx-2">
-            <v-card-text>{{ person.name }}</v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      -->
-    </v-container>
-  </v-app>
+  <div class="starwars">
+  </div>
 </template>
 
 <script>
 // allow user to upgrade list storage depending on their subscription tier
-import { people } from "../assets/people.js";
-import AddGift from "../components/AddGift.vue";
-import AddList from "../components/AddList.vue";
+//import { people } from "../assets/people.js";
 
 export default {
-  name: "Starwars",
-
-  components: {
-    "app-add-gift": AddGift,
-    "app-add-list": AddList
-  },
+  name: "starwars",
 
   data: function() {
     return {
-      people,
+      //people,
       gifts: [
         {
           name: "",
