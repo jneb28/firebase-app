@@ -9,10 +9,10 @@ Vue.config.productionTip = false;
 
 export const EventBus = new Vue();
 
-Vue.directive("active-nav", {
+Vue.directive("low-foot", {
   bind(el) {
     //binding vnode
-    el.style.background = "#ac41f4";
+    el.style.background = "#191919"; //1px solid #f7f7f7
   }
 });
 

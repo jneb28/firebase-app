@@ -1,14 +1,14 @@
 <template>
 <div class="starwars">
-  <v-container>
-    <v-layout row wrap>
+  <v-container justify-center>
+    <v-layout justify-center row wrap>
       <v-flex v-for="person in people" :key="person.name" xs4>
         <v-card dark color="secondary" class="my-1 mx-2">
           <v-card-text>{{ person.name }}</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout justify-center row wrap>
       <v-flex v-for="person in people" :key="person.name" xs4>
         <v-card dark color="secondary" class="my-1 mx-2">
           <v-card-text>{{ person.name }}</v-card-text>
@@ -39,3 +39,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.starwars {
+  text-align: center;
+}
+</style>

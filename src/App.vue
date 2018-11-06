@@ -5,11 +5,12 @@
     clipped
     dark
     permanent
+    floating
   >
     <v-list>
       <v-list-tile>
         <v-list-tile-content>
-            <v-list-tile-title>{{ username }}</v-list-tile-title>
+            <v-list-tile-title class="font-weight-medium title">{{ username }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
@@ -23,7 +24,7 @@
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          <v-list-tile-title class="font-weight-medium body-2">{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -34,11 +35,12 @@
     clipped
     dark
     permanent
+    floating
   >
     <v-list>
       <v-list-tile>
         <v-list-tile-content>
-            <v-list-tile-title>{{ username }}</v-list-tile-title>
+            <v-list-tile-title class="font-weight-medium title">{{ username }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
@@ -49,7 +51,7 @@
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title>{{ items[1].title }}</v-list-tile-title>
+          <v-list-tile-title class="font-weight-medium body-2">{{ items[1].title }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -57,38 +59,45 @@
 
   
 
-  <v-toolbar app flat dark clipped-left>
-    <v-toolbar-title class="white--text">Git Gifts</v-toolbar-title>
-    <v-spacer></v-spacer>
+  <v-toolbar app flat dark clipped-left v-low-foot>
+    <v-layout align-center> 
+      <v-toolbar-title class="font-weight-medium headline">Git Gifts</v-toolbar-title>
+      <v-spacer></v-spacer>
 
-    <v-toolbar-items>
-      <v-btn replace flat color="white" v-active-nav><router-link class="white--text" to="/">About</router-link></v-btn>
-      <v-btn replace flat color="white"><router-link class="white--text" to="/join">Join</router-link></v-btn>
-      <v-btn replace flat color="white"><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
-    </v-toolbar-items>
+      <v-toolbar-items>
+        <v-btn flat class="py-2 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
+        <v-btn flat class="py-2 px-3 mx-2 font-weight-medium body-1" to="/join">Join</v-btn>
+        <v-btn flat class="py-2 px-3 mx-2 font-weight-medium body-1" to="/starwars">Starwars</v-btn>
+      </v-toolbar-items>
+    </v-layout>
   </v-toolbar>
 
 
   <v-content>
-    <v-container fluid justify-center>
+    <v-container fluid>
       <router-view></router-view>
     </v-container>
   </v-content>
 
   
-  <v-footer app dark height="auto">
+  <v-footer app dark height="auto" inset>
     <v-layout justify-center row wrap>
-      <v-btn flat color="white"><router-link class="white--text" to="/">About</router-link></v-btn>
-      <v-btn flat color="white"><router-link class="white--text" to="/join">Join</router-link></v-btn>
-      <v-btn flat color="white"><router-link class="white--text" to="/starwars">Starwars</router-link></v-btn>
-      <v-flex color="grey" lighten-2 py-3 px-3 text-xs-center white--text xs12> 
-      &copy;2018 — <strong>Git Gifts</strong> 
+      <v-btn flat class="caption font-weight-light mx-3" to="/">About</v-btn>
+      <v-btn flat class="caption font-weight-light mx-3" to="/join">Join</v-btn>
+      <v-btn flat class="caption font-weight-light mx-3" to="/starwars">Starwars</v-btn>
+      <v-flex v-low-foot py-3 px-3 xs12> 
+      <span class="caption font-weight-thin">&copy;2018 Git Gifts</span> 
       </v-flex>
     </v-layout>
   </v-footer>
 
 
 </v-app>
+<!--
+<router-link to="/">About</router-link>
+<router-link to="/join">Join</router-link>
+<router-link to="/starwars">Starwars</router-link>
+-->
 </template>
 
 <script>
@@ -108,7 +117,8 @@ export default {
         { title: "Share List", icon: "account_box", link: "" }
       ],
       username: "Sign up for free!",
-      isUser: false
+      isUser: false,
+      lists: []
     };
   },
 
@@ -127,6 +137,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 </style>
