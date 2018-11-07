@@ -1,10 +1,10 @@
 <template>
   <div class="addlist">
+    
     <v-layout row wrap justify-center>
       <v-flex xs12>
         <h1>New List</h1>
       </v-flex>
-
 
       <v-flex xs6>
         <form @submit.prevent="submit">
@@ -25,6 +25,7 @@
         </form>
       </v-flex>
     </v-layout>
+    
   </div>
 
         

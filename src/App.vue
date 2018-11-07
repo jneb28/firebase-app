@@ -68,7 +68,7 @@
           <v-toolbar-items>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Join</v-btn>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/starwars">Starwars</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/starwars/add/addlist">Starwars</v-btn>
           </v-toolbar-items>
         </v-layout>
       </v-toolbar>
@@ -76,9 +76,7 @@
 
       <v-content>
         <v-container fluid>
-          <router-view class="view one"></router-view>
-          <router-view class="view two" name="addlist"></router-view>
-          <router-view class="view three" name="addgift"></router-view>
+          <router-view></router-view>
         </v-container>
       </v-content>
 
