@@ -10,6 +10,7 @@
 
 <script>
 // this might be the future location where subscription tier info appears
+
 export default {
   name: "about"
 };

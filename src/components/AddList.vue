@@ -1,13 +1,13 @@
 <template>
   <div class="addlist">
-    
     <v-layout row wrap justify-center>
       <v-flex xs12>
         <h1>New List</h1>
       </v-flex>
 
       <v-flex xs6>
-        <form @submit.prevent="submit">
+        
+        <form @submit.prevent="submit" class="mx-3 py-2">
           <v-text-field
           v-model="$v.listTitle.$model"
           :error-messages="titleErrors"
@@ -17,19 +17,14 @@
           ></v-text-field>
 
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Create List</v-btn>
-          <v-btn @click="clear">Reset</v-btn>
 
-          <p v-if="submitStatus === 'OK'">List created!</p>
-          <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-          <p v-if="submitStatus === 'PENDING'">Creating List...</p>
+          <p v-if="submitStatus === 'OK'" class="ok">List created! Redirecting...</p>
+          <p v-if="submitStatus === 'ERROR'" class="err">Please fill the form correctly.</p>
+          <p v-if="submitStatus === 'PENDING'" class="pend">Creating List...</p>
         </form>
       </v-flex>
     </v-layout>
-    
   </div>
-
-        
-     
 </template>
 
 <script>
@@ -49,7 +44,8 @@ export default {
 
   data: () => ({
     listTitle: "",
-    submitStatus: null
+    submitStatus: null,
+    lists: []
   }),
 
   computed: {
@@ -72,17 +68,28 @@ export default {
         this.submitStatus = "ERROR";
       } else {
         this.submitStatus = "PENDING";
-        EventBus.$emit("newList", this.listTitle);
+        EventBus.$emit("list", this.listTitle);
         setTimeout(() => {
           this.submitStatus = "OK";
+          setTimeout(() => {
+            //prop value is passed here
+            this.$router.push("/starwars/add/edit/" + this.listTitle);
+          }, 1000);
         }, 1000);
       }
-    },
-
-    clear() {
-      this.$v.$reset();
-      this.listTitle = "";
     }
   }
 };
 </script>
+
+<style scoped>
+p.ok {
+  color: #4caf50;
+}
+p.pend {
+  color: rgb(204, 197, 92);
+}
+p.err {
+  color: #ff5252;
+}
+</style>

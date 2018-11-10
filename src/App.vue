@@ -68,7 +68,6 @@
           <v-toolbar-items>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Join</v-btn>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/starwars/add/addlist">Starwars</v-btn>
           </v-toolbar-items>
         </v-layout>
       </v-toolbar>
@@ -85,7 +84,6 @@
         <v-layout justify-center row wrap>
           <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
           <v-btn flat class="caption font-weight-light" to="/join">Join</v-btn>
-          <v-btn flat class="caption font-weight-light" to="/starwars">Starwars</v-btn>
           <v-flex v-low-foot py-3 px-3 xs12> 
           <span class="caption font-weight-thin">&copy;2018 Git Gifts</span> 
           </v-flex>
@@ -109,7 +107,7 @@ export default {
         { title: "About", icon: "dashboard", link: "" },
         { title: "Join", icon: "person_add", link: "join" },
         { title: "Starwars", icon: "star", link: "starwars" },
-        { title: "Create List", icon: "person_add", link: "" },
+        { title: "New List", icon: "person_add", link: "starwars/add" },
         { title: "Edit List", icon: "gavel", link: "" },
         { title: "Share List", icon: "account_box", link: "" }
       ],

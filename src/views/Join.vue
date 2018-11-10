@@ -6,7 +6,7 @@
       </v-flex>
       
       <v-flex xs6>
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="px-3 py-2">
           <v-text-field
           v-model="$v.name.$model"
           :error-messages="nameErrors"
@@ -52,9 +52,9 @@
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Join</v-btn>
           <v-btn @click="clear">Reset</v-btn>
 
-          <p v-if="submitStatus === 'OK'">Thanks for joining Git Gifts!</p>
-          <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-          <p v-if="submitStatus === 'PENDING'">Creating...</p>
+          <p v-if="submitStatus === 'OK'" class="ok">Thanks for joining Git Gifts! Redirecting...</p>
+          <p v-if="submitStatus === 'ERROR'" class="err">Please fill the form correctly.</p>
+          <p v-if="submitStatus === 'PENDING'" class="pend">Creating...</p>
         </form>
       </v-flex>
     </v-layout>
@@ -156,9 +156,13 @@ export default {
         this.submitStatus = "ERROR";
       } else {
         this.submitStatus = "PENDING";
-        EventBus.$emit("username", this.username);
         setTimeout(() => {
           this.submitStatus = "OK";
+          EventBus.$emit("username", this.username);
+          setTimeout(() => {
+            this.$router.push("/starwars/add");
+            //redirects to addlist
+          }, 1000);
         }, 1000);
       }
     },
@@ -174,3 +178,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+p.ok {
+  color: #4caf50;
+}
+p.pend {
+  color: rgb(204, 197, 92);
+}
+p.err {
+  color: #ff5252;
+}
+</style>

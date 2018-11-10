@@ -4,7 +4,7 @@ import About from "./views/About.vue";
 import Join from "./views/Join.vue";
 import Starwars from "./views/Starwars.vue";
 import AddList from "./components/AddList.vue";
-//import AddGift from "./components/AddGift.vue";
+import EditList from "./components/EditList.vue";
 
 Vue.use(Router);
 
@@ -22,25 +22,20 @@ export default new Router({
     },
     {
       path: "/starwars/:id",
-      name: "starwars",
       component: Starwars,
+      props: true,
       children: [
         {
-          path: "addlist",
+          path: "",
           component: AddList
+        },
+        {
+          path: "/starwars/add/edit/:id",
+          name: "editlist",
+          component: EditList,
+          props: true
         }
       ]
     }
   ]
 });
-/*
-  {
-    path: "/starwars",
-    name: "starwars",
-    components: {
-      default: Starwars,
-      addlist: AddList,
-      addgift: AddGift
-    }
-  }
-*/
