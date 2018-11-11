@@ -18,9 +18,30 @@
 
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Create List</v-btn>
 
-          <p v-if="submitStatus === 'OK'" class="ok">List created! Redirecting...</p>
-          <p v-if="submitStatus === 'ERROR'" class="err">Please fill the form correctly.</p>
-          <p v-if="submitStatus === 'PENDING'" class="pend">Creating List...</p>
+          
+          <v-alert
+            v-if="submitStatus === 'OK'"
+            :value="true"
+            type="success"
+          >
+            List created! Redirecting...
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'PENDING'"
+            :value="true"
+            type="info"
+          >
+            Creating List...
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'ERROR'"
+            :value="true"
+            type="error"
+          >
+            Please fill the form correctly.
+          </v-alert>
+          
+
         </form>
       </v-flex>
     </v-layout>
@@ -81,15 +102,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-p.ok {
-  color: #4caf50;
-}
-p.pend {
-  color: rgb(204, 197, 92);
-}
-p.err {
-  color: #ff5252;
-}
-</style>

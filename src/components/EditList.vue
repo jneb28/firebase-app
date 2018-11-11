@@ -33,9 +33,29 @@
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Add Gift</v-btn>
           <v-btn @click="clear">Reset</v-btn>
 
-          <p v-if="submitStatus === 'OK'">Gift added!</p>
-          <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-          <p v-if="submitStatus === 'PENDING'">Adding Gift...</p>
+          <v-alert
+            v-if="submitStatus === 'OK'"
+            :value="true"
+            type="success"
+          >
+            Gift added!
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'PENDING'"
+            :value="true"
+            type="info"
+          >
+            Adding Gift...
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'ERROR'"
+            :value="true"
+            type="error"
+          >
+            Please fill the form correctly.
+          </v-alert>
+    
+    
         </form>
       </v-flex>
     </v-layout>
