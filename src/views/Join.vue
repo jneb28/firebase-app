@@ -52,9 +52,29 @@
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Join</v-btn>
           <v-btn @click="clear">Reset</v-btn>
 
-          <p v-if="submitStatus === 'OK'" class="ok">Thanks for joining Git Gifts! Redirecting...</p>
-          <p v-if="submitStatus === 'ERROR'" class="err">Please fill the form correctly.</p>
-          <p v-if="submitStatus === 'PENDING'" class="pend">Creating...</p>
+          <v-alert
+            v-if="submitStatus === 'OK'"
+            :value="true"
+            type="success"
+          >
+            Thanks for joining Git Gifts! Redirecting...
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'PENDING'"
+            :value="true"
+            type="info"
+          >
+            Creating account...
+          </v-alert>
+          <v-alert
+            v-if="submitStatus === 'ERROR'"
+            :value="true"
+            type="error"
+          >
+            Please fill the form correctly.
+          </v-alert>
+
+          
         </form>
       </v-flex>
     </v-layout>
@@ -178,15 +198,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-p.ok {
-  color: #4caf50;
-}
-p.pend {
-  color: rgb(204, 197, 92);
-}
-p.err {
-  color: #ff5252;
-}
-</style>
