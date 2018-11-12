@@ -23,11 +23,11 @@
           ></v-text-field>
 
           <v-text-field
-          v-model="$v.recipient.$model"
-          :error-messages="recipientErrors"
-          label="Recipient"
+          v-model="$v.giver.$model"
+          :error-messages="giverErrors"
+          label="Giver"
           required
-          @blur="$v.recipient.$touch()"
+          @blur="$v.giver.$touch()"
           ></v-text-field>
 
           <v-btn @click="submit" :disabled="submitStatus === 'PENDING'">Add Gift</v-btn>
@@ -82,19 +82,19 @@ export default {
 
   validations: {
     gift: { required, minLength: minLength(1), maxLength: maxLength(24) },
-    price: { required, between: between(0, 999999999) },
-    recipient: { required, minLength: minLength(1), maxLength: maxLength(24) }
+    price: { required, between: between(1, 999999999) },
+    giver: { required, minLength: minLength(1), maxLength: maxLength(24) }
   },
 
   data: () => ({
     gift: "",
-    price: 0,
-    recipient: "",
+    price: null,
+    giver: "",
     submitStatus: null,
     giftObj: {
       gift: "",
       price: 0,
-      recipient: ""
+      giver: ""
     }
   }),
 
@@ -114,19 +114,19 @@ export default {
       const errors = [];
       if (!this.$v.price.$dirty) return errors;
       !this.$v.price.between &&
-        errors.push("Price must be between 0 and 999999999");
+        errors.push("Price must be between 1 and 999999999");
       !this.$v.price.required && errors.push("Price is required");
       return errors;
     },
 
-    recipientErrors() {
+    giverErrors() {
       const errors = [];
-      if (!this.$v.recipient.$dirty) return errors;
-      !this.$v.recipient.minLength &&
-        errors.push("Recipient must have at least 1 characters");
-      !this.$v.recipient.maxLength &&
-        errors.push("Recipient must be at most 24 characters long");
-      !this.$v.recipient.required && errors.push("Recipient is required.");
+      if (!this.$v.giver.$dirty) return errors;
+      !this.$v.giver.minLength &&
+        errors.push("Giver must have at least 1 characters");
+      !this.$v.giver.maxLength &&
+        errors.push("Giver must be at most 24 characters long");
+      !this.$v.giver.required && errors.push("Giver is required.");
       return errors;
     }
   },
@@ -141,7 +141,7 @@ export default {
 
         this.giftObj.gift = this.gift;
         this.giftObj.price = this.price;
-        this.giftObj.recipient = this.recipient;
+        this.giftObj.giver = this.giver;
         EventBus.$emit("giftObject", this.giftObj);
 
         setTimeout(() => {
@@ -153,8 +153,9 @@ export default {
     clear() {
       this.$v.$reset();
       this.gift = "";
-      this.price = "";
-      this.recipient = "";
+      this.price = null;
+      this.giver = "";
+      this.submitStatus = null;
     }
   }
 };
