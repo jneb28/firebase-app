@@ -58,10 +58,10 @@
         </v-list>
       </v-navigation-drawer>
 
-      
 
       <v-toolbar app flat dark clipped-left v-low-foot>
         <v-layout align-center> 
+          <v-icon dark>home</v-icon>
           <v-toolbar-title class="font-weight-medium headline">Git Gifts</v-toolbar-title>
           <v-spacer></v-spacer>
 
@@ -71,7 +71,7 @@
           </v-toolbar-items>
         </v-layout>
       </v-toolbar>
-
+      
 
       <v-content>
         <v-container fluid>
