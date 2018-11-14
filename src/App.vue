@@ -3,9 +3,8 @@
     <v-app dark>
       <v-navigation-drawer v-if="isUser"
         app
+        v-model="drawer"
         clipped
-        dark
-        permanent
         floating
       >
         <v-list>
@@ -33,9 +32,8 @@
 
       <v-navigation-drawer v-else
         app
+        v-model="drawer"
         clipped
-        dark
-        permanent
         floating
       >
         <v-list>
@@ -59,9 +57,30 @@
       </v-navigation-drawer>
 
 
-      <v-toolbar app flat dark clipped-left v-low-foot>
+      <v-toolbar v-if="isUser"
+      app
+      flat
+      clipped-left
+      v-low-foot>
         <v-layout align-center> 
-          <v-icon dark>home</v-icon>
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+          <v-toolbar-title class="font-weight-medium headline">Git Gifts</v-toolbar-title>
+          <v-spacer></v-spacer>
+
+          <v-toolbar-items>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Logout</v-btn>
+          </v-toolbar-items>
+        </v-layout>
+      </v-toolbar>
+
+      <v-toolbar v-else
+      app
+      flat
+      clipped-left
+      v-low-foot>
+        <v-layout align-center> 
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
           <v-toolbar-title class="font-weight-medium headline">Git Gifts</v-toolbar-title>
           <v-spacer></v-spacer>
 
@@ -80,7 +99,23 @@
       </v-content>
 
       
-      <v-footer app dark height="auto" inset>
+      <v-footer v-if="isUser"
+      app
+      height="auto" 
+      inset>
+        <v-layout justify-center row wrap>
+          <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
+          <v-btn flat class="caption font-weight-light" to="/join">Logout</v-btn>
+          <v-flex v-low-foot py-3 px-3 xs12> 
+          <span class="caption font-weight-thin">&copy;2018 Git Gifts</span> 
+          </v-flex>
+        </v-layout>
+      </v-footer>
+
+      <v-footer v-else
+      app
+      height="auto"
+      inset>
         <v-layout justify-center row wrap>
           <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
           <v-btn flat class="caption font-weight-light" to="/join">Join</v-btn>
@@ -89,7 +124,6 @@
           </v-flex>
         </v-layout>
       </v-footer>
-
 
     </v-app>
   </div>
@@ -103,6 +137,8 @@ export default {
 
   data() {
     return {
+      drawer: null,
+      right: null,
       items: [
         { title: "About", icon: "dashboard", link: "" },
         { title: "Join", icon: "person_add", link: "join" },
