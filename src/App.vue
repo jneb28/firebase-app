@@ -42,6 +42,19 @@
                 <v-list-tile-title class="font-weight-medium title">{{ username }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+
+          <v-list-tile
+            @click="$router.push({ path: `/${items[0].link}` })"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ items[0].icon }}</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title class="font-weight-medium body-2">{{ items[0].title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
           <v-list-tile
             @click="$router.push({ path: `/${items[1].link}` })"
           >
@@ -51,6 +64,18 @@
 
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-medium body-2">{{ items[1].title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile
+            @click="$router.push({ path: `/${items[2].link}` })"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ items[2].icon }}</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title class="font-weight-medium body-2">{{ items[2].title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -69,7 +94,7 @@
 
           <v-toolbar-items>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Logout</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Log Out</v-btn>
           </v-toolbar-items>
         </v-layout>
       </v-toolbar>
@@ -86,7 +111,8 @@
 
           <v-toolbar-items>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Join</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/join">Sign Up</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/login">Login</v-btn>
           </v-toolbar-items>
         </v-layout>
       </v-toolbar>
@@ -105,7 +131,7 @@
       inset>
         <v-layout justify-center row wrap>
           <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
-          <v-btn flat class="caption font-weight-light" to="/join">Logout</v-btn>
+          <v-btn flat class="caption font-weight-light" to="/join">Log Out</v-btn>
           <v-flex v-low-foot py-3 px-3 xs12> 
           <span class="caption font-weight-thin">&copy;2018 Git Gifts</span> 
           </v-flex>
@@ -118,7 +144,8 @@
       inset>
         <v-layout justify-center row wrap>
           <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
-          <v-btn flat class="caption font-weight-light" to="/join">Join</v-btn>
+          <v-btn flat class="caption font-weight-light" to="/join">Sign Up</v-btn>
+          <v-btn flat class="caption font-weight-light" to="/login">Login</v-btn>
           <v-flex v-low-foot py-3 px-3 xs12> 
           <span class="caption font-weight-thin">&copy;2018 Git Gifts</span> 
           </v-flex>
@@ -130,7 +157,8 @@
 </template>
 
 <script>
-import { EventBus } from "./main.js";
+//import { EventBus } from "./main.js";
+//import axios from "axios";
 
 export default {
   name: "app",
@@ -141,23 +169,39 @@ export default {
       right: null,
       items: [
         { title: "About", icon: "dashboard", link: "" },
-        { title: "Join", icon: "person_add", link: "join" },
+        { title: "Sign Up", icon: "person_add", link: "join" },
+        { title: "Login", icon: "done", link: "login" },
         { title: "Starwars", icon: "star", link: "starwars" },
         { title: "New List", icon: "person_add", link: "starwars/add" },
         { title: "Edit List", icon: "gavel", link: "" },
         { title: "Share List", icon: "account_box", link: "" }
       ],
-      username: "Sign up for free!",
+      username: "Welcome to Git Gifts!",
       isUser: false,
       lists: []
     };
   },
 
   mounted() {
-    EventBus.$on("username", data => {
-      this.username = "Welcome, " + data + "!";
-      this.isUser = true;
-    });
+    // EventBus.$on("name", data => {
+    //   this.username = "Welcome, " + data + "!";
+    //   this.isUser = true;
+    // });
+    // axios.get("https://git-gifts.firebaseio.com/users.json")
+    // .then(response => {
+    //   console.log(response);
+    //   const data = response.data;
+    //   const users = [];
+    //   for (let key in data) {
+    //     const user = data[key];
+    //     console.log(key);
+    //     user.id = key;
+    //     users.push(user);
+    //   }
+    //   console.log(users);
+    //   this.username = "Welcome, " + users[0].username + "!";
+    // })
+    // .catch(error => console.log(error));
   }
 };
 </script>
