@@ -93,6 +93,8 @@ export default {
         setTimeout(() => {
           this.submitStatus = "OK";
           setTimeout(() => {
+            this.$store.state.lists.push(this.listTitle);
+            console.log(this.$store.state.lists);
             //prop value is passed here
             this.$router.push("/starwars/add/edit/" + this.listTitle);
           }, 1000);

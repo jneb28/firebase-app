@@ -134,6 +134,9 @@ export default {
             .then(response => console.log(response))
             .catch(error => console.log(error));
 
+          this.$store.state.userName = this.userEmail;
+          this.$store.state.isUser = true;
+
           //CATCH LOGIN ERROR AND DISPLAY FORM ALERT HERE
 
           //EventBus.$emit("name", user.name);

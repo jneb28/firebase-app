@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app dark>
-      <v-navigation-drawer v-if="isUser"
+      <v-navigation-drawer v-if="this.$store.state.isUser"
         app
         v-model="drawer"
         clipped
@@ -10,12 +10,12 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-                <v-list-tile-title class="font-weight-medium title">{{ username }}</v-list-tile-title>
+                <v-list-tile-title class="font-weight-medium title">{{ this.$store.state.userName }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
           <v-list-tile
-            v-for="(item, index) in items.slice(3)"
+            v-for="(item, index) in items.slice(4)"
             :key="index"
             @click="$router.push({ path: `/${item.link}` })"
           >
@@ -39,7 +39,7 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-                <v-list-tile-title class="font-weight-medium title">{{ username }}</v-list-tile-title>
+                <v-list-tile-title class="font-weight-medium title">{{ welcomeStr }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
@@ -82,7 +82,7 @@
       </v-navigation-drawer>
 
 
-      <v-toolbar v-if="isUser"
+      <v-toolbar v-if="this.$store.state.isUser"
       app
       flat
       clipped-left
@@ -125,7 +125,7 @@
       </v-content>
 
       
-      <v-footer v-if="isUser"
+      <v-footer v-if="this.$store.state.isUser"
       app
       height="auto" 
       inset>
@@ -174,11 +174,10 @@ export default {
         { title: "Starwars", icon: "star", link: "starwars" },
         { title: "New List", icon: "person_add", link: "starwars/add" },
         { title: "Edit List", icon: "gavel", link: "" },
-        { title: "Share List", icon: "account_box", link: "" }
+        { title: "Share List", icon: "account_box", link: "" },
+        { title: "Dashboard", icon: "dashboard", link: "" }
       ],
-      username: "Welcome to Git Gifts!",
-      isUser: false,
-      lists: []
+      welcomeStr: "Sign up for free!"
     };
   },
 
