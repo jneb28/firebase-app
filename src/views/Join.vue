@@ -5,8 +5,6 @@
 
         <h1>Sign Up</h1>
         <form @submit.prevent="signUp" class="px-3 py-2">
-         
-
           <v-text-field
           v-model.trim="$v.email.$model"
           :error-messages="emailErrors"
@@ -74,7 +72,6 @@ import {
   sameAs
 } from "vuelidate/lib/validators";
 //import { EventBus } from "../main.js";
-import axios from "axios";
 
 export default {
   name: "join",
@@ -141,17 +138,10 @@ export default {
             password: this.password
           };
 
-          axios
-            .post(
-              "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
-              {
-                email: user.email,
-                password: user.password,
-                returnSecureToken: true
-              }
-            )
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+          this.$store.dispatch("join", {
+            email: user.email,
+            password: user.password
+          });
 
           //EventBus.$emit("name", user.name);
           setTimeout(() => {

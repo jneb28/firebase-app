@@ -62,7 +62,7 @@ import {
   email
 } from "vuelidate/lib/validators";
 //import { EventBus } from "../main.js";
-import axios from "axios";
+//import axios from "axios";
 
 export default {
   name: "login",
@@ -122,23 +122,13 @@ export default {
             password: this.userPassword
           };
 
-          axios
-            .post(
-              "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
-              {
-                email: user.email,
-                password: user.password,
-                returnSecureToken: true
-              }
-            )
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+          this.$store.dispatch("login", {
+            email: user.email,
+            password: user.password
+          });
 
           this.$store.state.userName = this.userEmail;
           this.$store.state.isUser = true;
-
-          //CATCH LOGIN ERROR AND DISPLAY FORM ALERT HERE
-
           //EventBus.$emit("name", user.name);
           setTimeout(() => {
             this.$router.push("/");
