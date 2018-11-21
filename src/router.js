@@ -1,11 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store.js";
+
 import About from "./views/About.vue";
 import Join from "./views/Join.vue";
 import Login from "./views/Login.vue";
 import Starwars from "./views/Starwars.vue";
 import AddList from "./components/AddList.vue";
 import EditList from "./components/EditList.vue";
+import Dashboard from "./views/Dashboard.vue";
 
 Vue.use(Router);
 
@@ -42,6 +45,18 @@ export default new Router({
           props: true
         }
       ]
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard,
+      beforeEnter(to, from, next) {
+        if (store.state.idToken) {
+          next();
+        } else {
+          next("/login");
+        }
+      }
     }
   ]
 });

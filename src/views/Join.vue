@@ -6,6 +6,14 @@
         <h1>Sign Up</h1>
         <form @submit.prevent="signUp" class="px-3 py-2">
           <v-text-field
+          v-model.trim="$v.name.$model"
+          :error-messages="nameErrors"
+          label="Name"
+          required
+          @blur="$v.name.$touch()"
+          ></v-text-field>
+
+          <v-text-field
           v-model.trim="$v.email.$model"
           :error-messages="emailErrors"
           label="Email"
@@ -81,12 +89,14 @@ export default {
   mixins: [validationMixin],
 
   validations: {
+    name: { required, minLength: minLength(2), maxLength: maxLength(24) },
     email: { required, email },
     password: { required, minLength: minLength(6), maxLength: maxLength(24) },
     repeatPassword: { sameAsPassword: sameAs("password") }
   },
 
   data: () => ({
+    name: "",
     email: "",
     password: "",
     repeatPassword: "",
@@ -94,6 +104,17 @@ export default {
   }),
 
   computed: {
+    nameErrors() {
+      const errors = [];
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.minLength &&
+        errors.push("Name must have at least 2 characters");
+      !this.$v.name.maxLength &&
+        errors.push("Name must be at most 24 characters long");
+      !this.$v.name.required && errors.push("Name is required");
+      return errors;
+    },
+
     emailErrors() {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
@@ -134,14 +155,13 @@ export default {
           this.signUpStatus = "OK";
 
           const user = {
+            name: this.name,
             email: this.email,
             password: this.password
           };
 
-          this.$store.dispatch("join", {
-            email: user.email,
-            password: user.password
-          });
+          console.log(user);
+          this.$store.dispatch("join", user);
 
           //EventBus.$emit("name", user.name);
           setTimeout(() => {
