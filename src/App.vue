@@ -12,12 +12,12 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-                <v-list-tile-title class="font-weight-medium title">{{ welcomeStr }}</v-list-tile-title>
+                <v-list-tile-title class="font-weight-medium title">{{ tileTitle }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
           <v-list-tile 
-            v-if="!checkAuth"
+            
             @click="$router.push({ path: `/${items[0].link}` })"
           >
             <v-list-tile-action>
@@ -43,7 +43,7 @@
           </v-list-tile>
 
           <v-list-tile
-          v-if="checkAuth"
+            v-if="!checkAuth"
             @click="$router.push({ path: `/${items[2].link}` })"
           >
             <v-list-tile-action>
@@ -57,7 +57,7 @@
 
           <v-list-tile
             v-if="checkAuth"
-            @click="logOut"
+            @click="$router.push({ path: `/${items[3].link}` })"
           >
             <v-list-tile-action>
               <v-icon>{{ items[3].icon }}</v-icon>
@@ -65,6 +65,19 @@
 
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-medium body-2">{{ items[3].title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile
+            v-if="checkAuth"
+            @click="logOut"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ items[4].icon }}</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title class="font-weight-medium body-2">{{ items[4].title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -79,12 +92,12 @@
       >
         <v-layout align-center> 
           <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-          <v-toolbar-title class="font-weight-medium headline">Git Gifts</v-toolbar-title>
+          <v-toolbar-title class="font-weight-medium headline">Vue Venue</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <v-toolbar-items>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">About</v-btn>
-            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" v-if="!checkAuth" to="/join">Sign Up</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" to="/">Home</v-btn>
+            <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" v-if="!checkAuth" to="/signup">New User</v-btn>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" v-if="!checkAuth" to="/login">Login</v-btn>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1" v-if="checkAuth" to="/dashboard">Dashboard</v-btn>
             <v-btn flat class="py-3 px-3 mx-2 font-weight-medium body-1"  @click="logOut" v-if="checkAuth">Log Out</v-btn>
@@ -107,7 +120,7 @@
       >
         <v-layout justify-center row wrap>
           <v-btn flat class="caption font-weight-light" to="/">About</v-btn>
-          <v-btn flat class="caption font-weight-light" v-if="!checkAuth" to="/join">Sign Up</v-btn>
+          <v-btn flat class="caption font-weight-light" v-if="!checkAuth" to="/signup">New User</v-btn>
           <v-btn flat class="caption font-weight-light" v-if="!checkAuth" to="/login">Login</v-btn>
           <v-btn flat class="caption font-weight-light" v-if="checkAuth" to="/dashboard">Dashboard</v-btn>
           <v-btn flat class="caption font-weight-light" @click="logOut" v-if="checkAuth">Log Out</v-btn>
@@ -123,8 +136,6 @@
 </template>
 
 <script>
-//import { EventBus } from "./main.js";
-
 export default {
   name: "app",
 
@@ -133,12 +144,13 @@ export default {
       drawer: null,
       right: null,
       items: [
-        { title: "Sign Up", icon: "person_add", link: "join" },
+        { title: "Home", icon: "home", link: "signup" },
+        { title: "New User", icon: "create", link: "signup" },
         { title: "Login", icon: "done", link: "login" },
         { title: "Dashboard", icon: "dashboard", link: "dashboard" },
-        { title: "Log Out", icon: "gavel", link: "" }
+        { title: "Log Out", icon: "clear", link: "" }
       ],
-      welcomeStr: "Sign up for free!"
+      tileTitle: "Please log in . . ."
     };
   },
 
@@ -153,13 +165,6 @@ export default {
       this.$store.dispatch("logOut");
     }
   }
-
-  // mounted() {
-  //   EventBus.$on("name", data => {
-  //     this.username = "Welcome, " + data + "!";
-  //     this.isUser = true;
-  //   });
-  // }
 };
 </script>
 

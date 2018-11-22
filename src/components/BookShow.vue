@@ -1,5 +1,5 @@
 <template>
-  <div class="join">
+  <div class="signup">
     <v-layout row wrap justify-center>
       <v-flex xs4 class="mr-4">
 
@@ -43,25 +43,25 @@
           
 
           <v-alert
-            v-if="signUpStatus === 'OK'"
+            v-if="this.$store.state.loginStatus === 'OK'"
             :value="true"
             type="success"
           >
-            Thanks for joining Git Gifts! Redirecting to login page...
+            User created! Redirecting . . .
           </v-alert>
           <v-alert
-            v-if="signUpStatus === 'PENDING'"
+            v-if="this.$store.state.loginStatus === 'PENDING'"
             :value="true"
             type="info"
           >
-            Creating account...
+            Creating user . . .
           </v-alert>
           <v-alert
-            v-if="signUpStatus === 'ERROR'"
+            v-if="this.$store.state.loginStatus === 'ERROR'"
             :value="true"
             type="error"
           >
-            Please fill the form correctly.
+            Please fill the form correctly . . .
           </v-alert>
         </form>
 
@@ -79,10 +79,9 @@ import {
   email,
   sameAs
 } from "vuelidate/lib/validators";
-//import { EventBus } from "../main.js";
 
 export default {
-  name: "join",
+  name: "signup",
 
   props: [],
 
@@ -161,12 +160,10 @@ export default {
           };
 
           console.log(user);
-          this.$store.dispatch("join", user);
+          this.$store.dispatch("signUp", user);
 
-          //EventBus.$emit("name", user.name);
           setTimeout(() => {
             this.$router.push("/login");
-            //redirects to addlist
           }, 1000);
         }, 1000);
       }

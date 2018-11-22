@@ -3,11 +3,8 @@ import Router from "vue-router";
 import store from "./store.js";
 
 import About from "./views/About.vue";
-import Join from "./views/Join.vue";
+import SignUp from "./views/SignUp.vue";
 import Login from "./views/Login.vue";
-import Starwars from "./views/Starwars.vue";
-import AddList from "./components/AddList.vue";
-import EditList from "./components/EditList.vue";
 import Dashboard from "./views/Dashboard.vue";
 
 Vue.use(Router);
@@ -20,31 +17,14 @@ export default new Router({
       component: About
     },
     {
-      path: "/join",
-      name: "join",
-      component: Join
+      path: "/signup",
+      name: "signup",
+      component: SignUp
     },
     {
       path: "/login",
       name: "login",
       component: Login
-    },
-    {
-      path: "/starwars/:id",
-      component: Starwars,
-      props: true,
-      children: [
-        {
-          path: "",
-          component: AddList
-        },
-        {
-          path: "/starwars/add/edit/:id",
-          name: "editlist",
-          component: EditList,
-          props: true
-        }
-      ]
     },
     {
       path: "/dashboard",

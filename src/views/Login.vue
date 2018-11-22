@@ -26,25 +26,25 @@
           <v-btn @click="login" :disabled="loginStatus === 'PENDING'">Login</v-btn>
 
           <v-alert
-            v-if="loginStatus === 'OK'"
+            v-if="this.$store.state.loginStatus === 'OK'"
             :value="true"
             type="success"
           >
-            You are now logged in! Redirecting...
+            You are now logged in! Redirecting . . .
           </v-alert>
           <v-alert
-            v-if="loginStatus === 'PENDING'"
+            v-if="this.$store.state.loginStatus === 'PENDING'"
             :value="true"
             type="info"
           >
-            Logging in...
+            Logging in . . .
           </v-alert>
           <v-alert
-            v-if="loginStatus === 'ERROR'"
+            v-if="this.$store.state.loginStatus === 'ERROR'"
             :value="true"
             type="error"
           >
-            Please fill the form correctly.
+            Invalid login attempt . . .
           </v-alert>
         </form>
 
@@ -61,13 +61,9 @@ import {
   maxLength,
   email
 } from "vuelidate/lib/validators";
-//import { EventBus } from "../main.js";
-//import axios from "axios";
 
 export default {
   name: "login",
-
-  props: [],
 
   mixins: [validationMixin],
 
@@ -111,11 +107,11 @@ export default {
     login() {
       this.$v.$touch();
       if (this.$v.$invalid) {
-        this.loginStatus = "ERROR";
+        this.$store.state.loginStatus = "ERROR";
       } else {
-        this.loginStatus = "PENDING";
+        this.$store.state.loginStatus = "PENDING";
         setTimeout(() => {
-          this.loginStatus = "OK";
+          this.$store.state.loginStatus = "OK";
 
           const user = {
             email: this.userEmail,
@@ -127,12 +123,8 @@ export default {
             password: user.password
           });
 
-          this.$store.state.userName = this.userEmail;
-          this.$store.state.isUser = true;
-          //EventBus.$emit("name", user.name);
           setTimeout(() => {
-            this.$router.push("/");
-            //redirects to addlist
+            this.$router.push("/dashboard");
           }, 1000);
         }, 1000);
       }

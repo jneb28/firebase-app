@@ -7,24 +7,26 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    lists: [],
-    userName: "",
-    isUser: false,
     userId: null,
-    idToken: null
+    idToken: null,
+    loginStatus: null
   },
+
   mutations: {
     authUser(state, authData) {
       state.userId = authData.userId;
       state.idToken = authData.token;
     },
+
     clearAuth(state) {
       state.idToken = null;
       state.userId = null;
     }
   },
+
   actions: {
-    join({ commit, dispatch }, payload) {
+    signUp({ commit, state, dispatch }, payload) {
+      state.loginStatus = "PENDING";
       axios
         .post(
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
@@ -35,6 +37,7 @@ export default new Vuex.Store({
           }
         )
         .then(response => {
+          state.loginStatus = "OK";
           console.log(response);
           commit("authUser", {
             token: response.data.idToken,
@@ -42,9 +45,14 @@ export default new Vuex.Store({
           });
           dispatch("storeUser", payload);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          state.loginStatus = "ERROR";
+          console.log(error);
+        });
     },
-    login({ commit }, payload) {
+
+    login({ commit, state }, payload) {
+      state.loginStatus = "PENDING";
       axios
         .post(
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
@@ -55,6 +63,7 @@ export default new Vuex.Store({
           }
         )
         .then(response => {
+          state.loginStatus = "OK";
           console.log(response);
           commit("authUser", {
             token: response.data.idToken,
@@ -62,7 +71,10 @@ export default new Vuex.Store({
           });
         })
         //CATCH LOGIN ERROR AND DISPLAY FORM ALERT HERE
-        .catch(error => console.log(error));
+        .catch(error => {
+          state.loginStatus = "ERROR";
+          console.log(error);
+        });
     },
 
     logOut({ commit }) {
@@ -85,6 +97,7 @@ export default new Vuex.Store({
         .catch(error => console.log(error));
     }
   },
+
   getters: {
     isAuth(state) {
       return state.idToken !== null;
