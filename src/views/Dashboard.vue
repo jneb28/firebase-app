@@ -30,13 +30,14 @@ export default {
 
   mounted() {
     axios
-      .get("https://api.fortnitetracker.com/v1/profile/xb1/Xxakprice95xX", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "7152cd0a-ff37-4945-b2ac-ea8d1c4f3fe2"
-        }
+      .get(
+        "https://crossorigin.me/https://api.fortnitetracker.com/v1/profile/xb1/Xxakprice95xX"
+      )
+      .then(response => {
+        console.log(response);
+        this.info = response.data;
+        console.log(this.info);
       })
-      .then(response => console.log(response))
       .catch(error => console.log(error));
     // if (!this.$store.state.idToken) {
     //   return;
