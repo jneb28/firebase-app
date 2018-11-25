@@ -29,20 +29,29 @@ export default {
   },
 
   mounted() {
-    if (!this.$store.state.idToken) {
-      return;
-    }
     axios
-      .get(
-        "https://git-gifts.firebaseio.com/users.json" +
-          "?auth=" +
-          this.$store.state.idToken
-      )
-      .then(response => {
-        this.info = response.data;
-        console.log(this.info);
+      .get("https://api.fortnitetracker.com/v1/profile/xb1/Xxakprice95xX", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "7152cd0a-ff37-4945-b2ac-ea8d1c4f3fe2"
+        }
       })
+      .then(response => console.log(response))
       .catch(error => console.log(error));
+    // if (!this.$store.state.idToken) {
+    //   return;
+    // }
+    // axios
+    //   .get(
+    //     "https://git-gifts.firebaseio.com/users.json" +
+    //       "?auth=" +
+    //       this.$store.state.idToken
+    //   )
+    //   .then(response => {
+    //     this.info = response.data;
+    //     console.log(this.info);
+    //   })
+    //   .catch(error => console.log(error));
   }
 };
 </script>
