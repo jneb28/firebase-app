@@ -108,7 +108,9 @@
 
       <v-content>
         <v-container fluid>
-          <router-view></router-view>
+          <transition name="fade">
+            <router-view></router-view>
+          </transition>
         </v-container>
       </v-content>
 
@@ -174,5 +176,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
