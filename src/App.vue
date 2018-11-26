@@ -144,7 +144,7 @@ export default {
       drawer: null,
       right: null,
       items: [
-        { title: "Home", icon: "home", link: "signup" },
+        { title: "Home", icon: "home", link: "" },
         { title: "New User", icon: "create", link: "signup" },
         { title: "Login", icon: "done", link: "login" },
         { title: "Dashboard", icon: "dashboard", link: "dashboard" },
