@@ -17,6 +17,7 @@
 </template>
 
 <script>
+// .PUT WILL UPDATE DATABASE VALUES
 import axios from "axios";
 
 export default {
