@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    username: "",
     userId: null,
     idToken: null,
     loginStatus: null
@@ -64,6 +65,7 @@ export default new Vuex.Store({
         )
         .then(response => {
           state.loginStatus = "OK";
+          state.username = payload.email;
           console.log(response);
           commit("authUser", {
             token: response.data.idToken,
