@@ -1,5 +1,5 @@
 <template>
-  <div class="signup">
+  <div class="bookshow">
     <v-layout row wrap justify-center>
       <v-flex xs4 class="mr-4">
 
@@ -14,32 +14,16 @@
           ></v-text-field>
 
           <v-text-field
-          v-model.trim="$v.email.$model"
-          :error-messages="emailErrors"
-          label="Email"
+          v-model.trim="$v.date.$model"
+          :error-messages="dateErrors"
+          label="Date"
           required
-          @blur="$v.email.$touch()"
+          @blur="$v.date.$touch()"
           ></v-text-field>
 
-          <v-text-field 
-          v-model.trim="$v.password.$model"
-          :error-messages="passwordErrors"
-          type="password"
-          label="Password"
-          required
-          @blur="$v.password.$touch()"
-          ></v-text-field>
+          
 
-          <v-text-field 
-          v-model.trim="$v.repeatPassword.$model"
-          :error-messages="repeatPasswordErrors"
-          type="password"
-          label="Repeat Password"
-          required
-          @blur="$v.repeatPassword.$touch()"
-          ></v-text-field>
-
-          <v-btn @click="signUp" :disabled="signUpStatus === 'PENDING'">Sign Up</v-btn>
+          <v-btn @click="bookShow" :disabled="signUpStatus === 'PENDING'">Book Show</v-btn>
           
 
           <v-alert
@@ -75,31 +59,22 @@ import { validationMixin } from "vuelidate";
 import {
   required,
   minLength,
-  maxLength,
-  email,
-  sameAs
+  maxLength
 } from "vuelidate/lib/validators";
 
 export default {
-  name: "signup",
-
-  props: [],
+  name: "bookshow",
 
   mixins: [validationMixin],
 
   validations: {
     name: { required, minLength: minLength(2), maxLength: maxLength(24) },
-    email: { required, email },
-    password: { required, minLength: minLength(6), maxLength: maxLength(24) },
-    repeatPassword: { sameAsPassword: sameAs("password") }
+    date: { required, minLength: minLength(10), maxLength: maxLength(10) },
   },
 
   data: () => ({
     name: "",
-    email: "",
-    password: "",
-    repeatPassword: "",
-    signUpStatus: null
+    date: ""
   }),
 
   computed: {
@@ -114,56 +89,38 @@ export default {
       return errors;
     },
 
-    emailErrors() {
+    dateErrors() {
       const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Must be valid e-mail");
-      !this.$v.email.required && errors.push("E-mail is required");
-      return errors;
-    },
-
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Password is required");
-      !this.$v.password.minLength &&
-        errors.push("Password must have at least 6 characters");
-      !this.$v.password.maxLength &&
-        errors.push("Password must be at most 24 characters long");
-      return errors;
-    },
-
-    repeatPasswordErrors() {
-      const errors = [];
-      if (!this.$v.repeatPassword.$dirty) return errors;
-      !this.$v.password.required && errors.push("Repeat password is required");
-      !this.$v.repeatPassword.sameAsPassword &&
-        errors.push("Passwords must be identical");
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.minLength &&
+        errors.push("Date must have at least 10 characters. i.e. 01/01/1234");
+      !this.$v.name.maxLength &&
+        errors.push("Date must have at least 10 characters. i.e. 01/01/1234");
+      !this.$v.name.required && errors.push("Date is required");
       return errors;
     }
   },
 
   methods: {
-    signUp() {
+    bookShow() {
       this.$v.$touch();
       if (this.$v.$invalid) {
-        this.signUpStatus = "ERROR";
+        this.$store.state.loginStatus = "ERROR";
       } else {
-        this.signUpStatus = "PENDING";
+        this.$store.state.loginStatus = "PENDING";
         setTimeout(() => {
-          this.signUpStatus = "OK";
+          this.$store.state.loginStatus = "OK";
 
           const user = {
             name: this.name,
-            email: this.email,
-            password: this.password
+            date: this.date
           };
 
           console.log(user);
-          this.$store.dispatch("signUp", user);
+          this.$store.dispatch("addBand", user);
 
           setTimeout(() => {
-            this.$router.push("/login");
+            this.$router.push("/dashboard");
           }, 1000);
         }, 1000);
       }

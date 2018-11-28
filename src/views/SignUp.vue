@@ -99,7 +99,7 @@ export default {
     email: "",
     password: "",
     repeatPassword: "",
-    signUpStatus: null
+    
   }),
 
   computed: {
@@ -147,11 +147,11 @@ export default {
     signUp() {
       this.$v.$touch();
       if (this.$v.$invalid) {
-        this.signUpStatus = "ERROR";
+        this.$store.state.loginStatus = "ERROR";
       } else {
-        this.signUpStatus = "PENDING";
+        this.$store.state.loginStatus = "PENDING";
         setTimeout(() => {
-          this.signUpStatus = "OK";
+          this.$store.state.loginStatus = "OK";
 
           const user = {
             name: this.name,
