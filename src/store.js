@@ -26,7 +26,9 @@ export default new Vuex.Store({
   },
 
   actions: {
-    signUp({ commit, state, dispatch }, payload) {
+    addBand({ commit, state, dispatch }, payload) {},
+
+    newUser({ commit, state, dispatch }, payload) {
       state.loginStatus = "PENDING";
       axios
         .post(

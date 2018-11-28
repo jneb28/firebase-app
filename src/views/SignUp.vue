@@ -160,7 +160,7 @@ export default {
           };
 
           console.log(user);
-          this.$store.dispatch("signUp", user);
+          this.$store.dispatch("newUser", user);
 
           setTimeout(() => {
             this.$router.push("/login");
