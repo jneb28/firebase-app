@@ -1,54 +1,45 @@
 <template>
   <div class="bookshow">
     <v-layout row wrap justify-center>
+      <v-flex xs12>
+        <h1>Booking</h1>
+      </v-flex>
       <v-flex xs4 class="mr-4">
-
-        <h1>Sign Up</h1>
         <form @submit.prevent="signUp" class="px-3 py-2">
           <v-text-field
-          v-model.trim="$v.name.$model"
-          :error-messages="nameErrors"
-          label="Name"
-          required
-          @blur="$v.name.$touch()"
+            v-model.trim="$v.name.$model"
+            :error-messages="nameErrors"
+            label="Name"
+            required
+            @blur="$v.name.$touch()"
           ></v-text-field>
 
           <v-text-field
-          v-model.trim="$v.date.$model"
-          :error-messages="dateErrors"
-          label="Date"
-          required
-          @blur="$v.date.$touch()"
+            v-model.trim="$v.date.$model"
+            :error-messages="dateErrors"
+            label="Date"
+            required
+            @blur="$v.date.$touch()"
           ></v-text-field>
 
-          
-
-          <v-btn @click="bookShow" :disabled="signUpStatus === 'PENDING'">Book Show</v-btn>
-          
+          <v-btn @click="bookShow" :disabled="this.$store.state.loginStatus === 'PENDING'">Book</v-btn>
 
           <v-alert
             v-if="this.$store.state.loginStatus === 'OK'"
             :value="true"
             type="success"
-          >
-            User created! Redirecting . . .
-          </v-alert>
+          >Band added!</v-alert>
           <v-alert
             v-if="this.$store.state.loginStatus === 'PENDING'"
             :value="true"
             type="info"
-          >
-            Creating user . . .
-          </v-alert>
+          >Adding band . . .</v-alert>
           <v-alert
             v-if="this.$store.state.loginStatus === 'ERROR'"
             :value="true"
             type="error"
-          >
-            Please fill the form correctly . . .
-          </v-alert>
+          >Please fill the form correctly . . .</v-alert>
         </form>
-
       </v-flex>
     </v-layout>
   </div>
@@ -56,11 +47,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import {
-  required,
-  minLength,
-  maxLength
-} from "vuelidate/lib/validators";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 
 export default {
   name: "bookshow",
@@ -69,7 +56,7 @@ export default {
 
   validations: {
     name: { required, minLength: minLength(2), maxLength: maxLength(24) },
-    date: { required, minLength: minLength(10), maxLength: maxLength(10) },
+    date: { required, minLength: minLength(10), maxLength: maxLength(10) }
   },
 
   data: () => ({
@@ -91,12 +78,12 @@ export default {
 
     dateErrors() {
       const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.minLength &&
+      if (!this.$v.date.$dirty) return errors;
+      !this.$v.date.minLength &&
         errors.push("Date must have at least 10 characters. i.e. 01/01/1234");
-      !this.$v.name.maxLength &&
+      !this.$v.date.maxLength &&
         errors.push("Date must have at least 10 characters. i.e. 01/01/1234");
-      !this.$v.name.required && errors.push("Date is required");
+      !this.$v.date.required && errors.push("Date is required");
       return errors;
     }
   },
@@ -123,6 +110,7 @@ export default {
             this.$router.push("/dashboard");
           }, 1000);
         }, 1000);
+        //this.$store.loginStatus = null;
       }
     }
   }

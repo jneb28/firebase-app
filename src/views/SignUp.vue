@@ -39,7 +39,7 @@
           @blur="$v.repeatPassword.$touch()"
           ></v-text-field>
 
-          <v-btn @click="signUp" :disabled="signUpStatus === 'PENDING'">Sign Up</v-btn>
+          <v-btn @click="signUp" :disabled="this.$store.state.loginStatus === 'PENDING'">Sign Up</v-btn>
           
 
           <v-alert
