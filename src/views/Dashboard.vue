@@ -14,8 +14,8 @@
         <v-card dark>
           <v-card-text>
             <p>{{ user.name }}</p>
-            <p>{{ user.email }}</p>
-            <p>{{ user.password }}</p>
+            <p>{{ user.date }}</p>
+            
           </v-card-text>
         </v-card>
       </v-flex>
@@ -40,7 +40,6 @@ export default {
   components: {
     "book-show": BookShow
   },
-  
   mounted() {
     if (!this.$store.state.idToken) {
       return;

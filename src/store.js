@@ -17,6 +17,9 @@ export default new Vuex.Store({
     authUser(state, authData) {
       state.userId = authData.userId;
       state.idToken = authData.token;
+      setTimeout(() => {
+        state.loginStatus = "";
+      }, 800);
     },
 
     clearAuth(state) {
@@ -29,19 +32,21 @@ export default new Vuex.Store({
     addBand({ state }, payload) {
       state.loginStatus = "PENDING";
       axios
-      .post(
-        "https://git-gifts.firebaseio.com/bands.json" + "?auth=" + state.idToken, payload
-      )
-      .then(response => {
-        state.loginStatus = "OK";
-        console.log(response);
-        state.loginStatus = null;
-      })
-      .catch(error => {
-        state.loginStatus = "ERROR";
-        console.log(error);
-      });
-      
+        .post(
+          "https://git-gifts.firebaseio.com/bands.json" +
+            "?auth=" +
+            state.idToken,
+          payload
+        )
+        .then(response => {
+          state.loginStatus = "OK";
+          console.log(response);
+          state.loginStatus = null;
+        })
+        .catch(error => {
+          state.loginStatus = "ERROR";
+          console.log(error);
+        });
     },
 
     newUser({ commit, state, dispatch }, payload) {

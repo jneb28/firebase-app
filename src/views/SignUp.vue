@@ -98,8 +98,7 @@ export default {
     name: "",
     email: "",
     password: "",
-    repeatPassword: "",
-    
+    repeatPassword: ""
   }),
 
   computed: {
