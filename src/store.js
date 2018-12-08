@@ -19,18 +19,23 @@ export default new Vuex.Store({
       state.idToken = authData.token;
       setTimeout(() => {
         state.loginStatus = "";
-      }, 800);
+      }, 600);
     },
 
     clearAuth(state) {
       state.idToken = null;
       state.userId = null;
+    },
+
+    resetStatus(state) {
+      state.loginStatus = null;
     }
   },
 
   actions: {
-    addBand({ state }, payload) {
+    addBand({ state, commit }, payload) {
       state.loginStatus = "PENDING";
+
       axios
         .post(
           "https://git-gifts.firebaseio.com/bands.json" +
@@ -41,7 +46,10 @@ export default new Vuex.Store({
         .then(response => {
           state.loginStatus = "OK";
           console.log(response);
-          state.loginStatus = null;
+
+          setTimeout(() => {
+            commit("resetStatus");
+          }, 1000);
         })
         .catch(error => {
           state.loginStatus = "ERROR";
@@ -49,8 +57,28 @@ export default new Vuex.Store({
         });
     },
 
+    // FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    getBand({ state, payload }) {
+      if (!state.idToken) {
+        return;
+      }
+      axios
+        .get(
+          "https://git-gifts.firebaseio.com/bands.json" +
+            "?auth=" +
+            state.idToken
+        )
+        .then(response => {
+          payload = response.data;
+          console.log(payload);
+          return payload;
+        })
+        .catch(error => console.log(error));
+    },
+
     newUser({ commit, state, dispatch }, payload) {
       state.loginStatus = "PENDING";
+
       axios
         .post(
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
@@ -95,7 +123,6 @@ export default new Vuex.Store({
             userId: response.data.localId
           });
         })
-        //CATCH LOGIN ERROR AND DISPLAY FORM ALERT HERE
         .catch(error => {
           state.loginStatus = "ERROR";
           console.log(error);

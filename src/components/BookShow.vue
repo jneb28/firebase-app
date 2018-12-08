@@ -14,13 +14,38 @@
             @blur="$v.name.$touch()"
           ></v-text-field>
 
-          <v-text-field
-            v-model.trim="$v.date.$model"
+          <!-- 
+            <v-text-field
+            v-model.trim="$v.date.$model" 
+            @blur="$v.date.$touch()"
             :error-messages="dateErrors"
             label="Date"
             required
-            @blur="$v.date.$touch()"
-          ></v-text-field>
+            ></v-text-field>
+          -->
+          
+
+          
+          <v-menu
+            :close-on-content-click="false"
+            v-model="menu"
+            :nudge-right="40"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            min-width="290px"
+          >
+            <v-text-field
+              slot="activator"
+              v-model="date"
+              label="Date"
+              
+              readonly
+            ></v-text-field>
+            <v-date-picker v-model="date" @input="menu = false" no-title></v-date-picker>
+          </v-menu>
+          
 
           <v-btn @click="bookShow" :disabled="this.$store.state.loginStatus === 'PENDING'">Book</v-btn>
 
@@ -61,7 +86,8 @@ export default {
 
   data: () => ({
     name: "",
-    date: ""
+    date: new Date().toISOString().substr(0, 10),
+    menu: false
   }),
 
   computed: {
@@ -90,6 +116,7 @@ export default {
 
   methods: {
     bookShow() {
+      //console.log(this.picker);
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.$store.state.loginStatus = "ERROR";
