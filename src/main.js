@@ -5,16 +5,28 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import firebase from "firebase";
+
 Vue.config.productionTip = false;
 
-export const EventBus = new Vue();
-
+// ************************ VUE DIRECTIVE ************************
 Vue.directive("low-foot", {
   bind(el) {
     //binding vnode
-    el.style.background = "#191919"; //1px solid #f7f7f7
+    el.style.background = "#191919";
   }
 });
+
+// ************************ FIREBASE ************************
+var config = {
+  apiKey: "AIzaSyDBzUAWbmfnPy__r0D88A3nHGwQVY_r93g",
+  authDomain: "git-gifts.firebaseapp.com",
+  databaseURL: "https://git-gifts.firebaseio.com",
+  projectId: "git-gifts",
+  storageBucket: "git-gifts.appspot.com",
+  messagingSenderId: "701971701375"
+};
+firebase.initializeApp(config);
 
 new Vue({
   router,

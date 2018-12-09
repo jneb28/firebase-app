@@ -49,9 +49,7 @@
       </v-flex>
     </v-layout>
 
-    
     <v-divider></v-divider>
-    
 
     <v-layout row wrap justify-center>
       <v-flex xs12 class="my-4">
@@ -88,7 +86,7 @@ export default {
 
   data() {
     return {
-      info: null,
+      info: [],
 
       name: "",
       date: new Date().toISOString().substr(0, 10),
@@ -163,8 +161,6 @@ export default {
         console.log(this.info);
       })
       .catch(error => console.log(error));
-    // this.info = this.$store.dispatch("getBand");
-    // console.log(this.info);
   }
 };
 </script>
