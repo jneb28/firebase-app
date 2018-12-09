@@ -9,6 +9,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
+import "firebase/firestore";
 
 
 Vue.config.productionTip = false;
