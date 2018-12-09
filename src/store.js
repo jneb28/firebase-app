@@ -10,7 +10,9 @@ export default new Vuex.Store({
     username: "",
     userId: null,
     idToken: null,
-    loginStatus: null
+    loginStatus: null,
+    email: "",
+    password: ""
   },
 
   mutations: {
@@ -117,7 +119,10 @@ export default new Vuex.Store({
         .then(response => {
           state.loginStatus = "OK";
           state.username = payload.email;
+          state.email = payload.email;
+          state.password = payload.password;
           console.log(response);
+
           commit("authUser", {
             token: response.data.idToken,
             userId: response.data.localId

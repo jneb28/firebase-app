@@ -2,7 +2,7 @@
   <div class="dashboard">
     <v-layout row wrap justify-center>
       <v-flex xs12>
-        <h1>Booking</h1>
+        <h1>Add Band</h1>
       </v-flex>
       <v-flex xs4 class="mr-4">
         <form @submit.prevent="signUp" class="px-3 py-2">
@@ -53,14 +53,17 @@
 
     <v-layout row wrap justify-center>
       <v-flex xs12 class="my-4">
-        <h1>Upcoming Shows</h1>
+        <h1>Shows</h1>
       </v-flex>
-      <v-flex v-for="(user, index) in info" :key="index" xs4>
-        <v-card dark>
+      <v-flex v-for="(band, index) in info" :key="index" xs4>
+        <v-card dark class="ma-1 py-3">
           <v-card-text>
-            <p>{{ user.name }}</p>
-            <p>{{ user.date }}</p>
+            <p class="band-name">{{ band.name }}</p>
+            <p class="band-date">{{ band.date }}</p>
           </v-card-text>
+          <v-card-actions>
+            <v-btn flat>Remove Band</v-btn>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -68,8 +71,7 @@
 </template>
 
 <script>
-// .PUT WILL UPDATE DATABASE VALUES
-import axios from "axios";
+import firebase from "firebase";
 
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
@@ -87,10 +89,11 @@ export default {
   data() {
     return {
       info: [],
-
       name: "",
       date: new Date().toISOString().substr(0, 10),
-      menu: false
+      menu: false,
+
+      start: new Date().toISOString().substr(0, 6)
     };
   },
 
@@ -114,53 +117,82 @@ export default {
         this.$store.state.loginStatus = "ERROR";
       } else {
         this.$store.state.loginStatus = "PENDING";
+
         setTimeout(() => {
           const user = {
             name: this.name,
             date: this.date
           };
-
-          console.log(user);
           this.$store.dispatch("addBand", user);
         }, 1000);
       }
-    }
-  },
+    },
 
-  watch: {
-    info() {
-      if (!this.$store.state.idToken) {
-        return;
-      }
-      axios
-        .get(
-          "https://git-gifts.firebaseio.com/bands.json" +
-            "?auth=" +
-            this.$store.state.idToken
+    fireDatabase() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(
+          this.$store.state.email,
+          this.$store.state.password
         )
-        .then(response => {
-          this.info = response.data;
-          console.log(this.info);
-        })
-        .catch(error => console.log(error));
+        .catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+
+      var database = firebase.database();
+      var ref = database.ref("bands");
+      ref
+        .orderByChild("date")
+        .startAt(this.start)
+        .on("value", this.getData, this.errorData);
+    },
+
+    getData(response) {
+      this.info = [];
+      response.forEach(child => {
+        this.info.push(child.val());
+      });
+    },
+
+    errorData(error) {
+      console.log(error);
     }
   },
-
   mounted() {
-    if (!this.$store.state.idToken) {
-      return;
-    }
-    axios
-      .get(
-        "https://git-gifts.firebaseio.com/bands.json" +
-          "?auth=" +
-          this.$store.state.idToken
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        this.$store.state.email,
+        this.$store.state.password
       )
-      .then(response => {
-        this.info = response.data;
-        console.log(this.info);
-      })
-      .catch(error => console.log(error));
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+
+    var database = firebase.database();
+    var ref = database.ref("bands");
+    ref
+      .orderByChild("date")
+      .startAt(this.start)
+      .on("value", this.getData, this.errorData);
   }
 };
 </script>
+
+<style scoped>
+.band-name {
+  font-size: 18px;
+  color: #f7f7f7;
+  font-weight: bold;
+}
+
+.band-date {
+  font-size: 14px;
+  color: #42b883;
+  text-decoration: underline;
+}
+</style>
