@@ -6,6 +6,8 @@ import router from "./router";
 import store from "./store";
 
 import firebase from "firebase";
+import "firebase/auth";
+import "firebase/firestore";
 
 Vue.config.productionTip = false;
 
