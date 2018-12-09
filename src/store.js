@@ -59,25 +59,6 @@ export default new Vuex.Store({
         });
     },
 
-    // FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    getBand({ state, payload }) {
-      if (!state.idToken) {
-        return;
-      }
-      axios
-        .get(
-          "https://git-gifts.firebaseio.com/bands.json" +
-            "?auth=" +
-            state.idToken
-        )
-        .then(response => {
-          payload = response.data;
-          console.log(payload);
-          return payload;
-        })
-        .catch(error => console.log(error));
-    },
-
     newUser({ commit, state, dispatch }, payload) {
       state.loginStatus = "PENDING";
 

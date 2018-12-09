@@ -62,7 +62,7 @@
             <p class="band-date">{{ band.date }}</p>
           </v-card-text>
           <v-card-actions>
-            <v-btn flat>Remove Band</v-btn>
+            <v-btn flat @click="remove(band.name)">Remove Band</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -126,6 +126,21 @@ export default {
           this.$store.dispatch("addBand", user);
         }, 1000);
       }
+    },
+
+    remove(band) {
+      var ref = firebase.database().ref("bands");
+      ref
+        .orderByChild("name")
+        .equalTo(band)
+        .once("value")
+        .then(function(snapshot) {
+          console.log(snapshot);
+          snapshot.forEach(function(childSnapshot) {
+            ref.child(childSnapshot.key).remove();
+            return true;
+          });
+        });
     },
 
     fireDatabase() {
