@@ -18,6 +18,7 @@ export default new Vuex.Store({
   mutations: {
     authUser(state, authData) {
       state.userId = authData.userId;
+      console.log(authData.userId);
       state.idToken = authData.token;
       setTimeout(() => {
         state.loginStatus = "";

@@ -12,11 +12,12 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-                <v-list-tile-title class="font-weight-medium title" v-if="!checkAuth">
+                <v-list-tile-title class="font-weight-medium title" style="color: #42b883; text-decoration: underline" v-if="!checkAuth">
                   {{ tileTitle }}
                 </v-list-tile-title>
 
-                <v-list-tile-title class="font-weight-medium title" v-if="checkAuth">
+                <v-list-tile-title class="font-weight-medium title" 
+                style="color: #42b883; text-decoration: underline" v-if="checkAuth">
                   {{ this.$store.state.username }}
                 </v-list-tile-title>
             </v-list-tile-content>

@@ -187,12 +187,18 @@ export default {
         console.log(errorCode, errorMessage);
       });
 
-    var database = firebase.database();
-    var ref = database.ref("bands");
-    ref
-      .orderByChild("date")
-      .startAt(this.start)
-      .on("value", this.getData, this.errorData);
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        var database = firebase.database();
+        var ref = database.ref("bands");
+        ref
+          .orderByChild("date")
+          .startAt(this.start)
+          .on("value", this.getData, this.errorData);
+      } else {
+        this.errorData;
+      }
+    });
   }
 };
 </script>
