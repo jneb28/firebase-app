@@ -135,7 +135,6 @@ export default {
         .equalTo(band)
         .once("value")
         .then(function(snapshot) {
-          console.log(snapshot);
           snapshot.forEach(function(childSnapshot) {
             ref.child(childSnapshot.key).remove();
             return true;
