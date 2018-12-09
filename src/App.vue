@@ -23,6 +23,8 @@
             </v-list-tile-content>
           </v-list-tile>
 
+          <v-divider></v-divider>
+          
           <v-list-tile 
             @click="$router.push({ path: `/${items[0].link}` })"
           >

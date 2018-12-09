@@ -3,7 +3,7 @@
     <v-layout row wrap justify-center>
       <v-flex xs4>
 
-        <h1>Login</h1>
+        <h1>Log In</h1>
         <form class="px-3 py-2">
 
           <v-text-field

@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard">
-    <v-layout row wrap justify-center>
+    <v-layout row wrap justify-center class="mb-3">
       <v-flex xs12>
         <h1>Add Band</h1>
       </v-flex>
-      <v-flex xs4 class="mr-4">
+      <v-flex xs4>
         <form @submit.prevent="signUp" class="px-3 py-2">
           <v-text-field
             v-model.trim="$v.name.$model"
@@ -51,20 +51,22 @@
 
     <v-divider></v-divider>
 
-    <v-layout row wrap justify-center>
+    <v-layout row wrap justify-center class="mt-3">
       <v-flex xs12 class="my-4">
         <h1>Shows</h1>
       </v-flex>
       <v-flex v-for="(band, index) in info" :key="index" xs4>
-        <v-card dark class="ma-1 py-3">
-          <v-card-text>
-            <p class="band-name">{{ band.name }}</p>
-            <p class="band-date">{{ band.date }}</p>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn flat @click="remove(band.name)">Remove Band</v-btn>
-          </v-card-actions>
-        </v-card>
+        <transition name="fade" mode="out-in">
+          <v-card dark class="ma-1 py-3" :key="index">
+            <v-card-text>
+              <p class="band-name">{{ band.name }}</p>
+              <p class="band-date">{{ band.date }}</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn flat @click="remove(band.name)">Remove Band</v-btn>
+            </v-card-actions>
+          </v-card>
+        </transition>
       </v-flex>
     </v-layout>
   </div>

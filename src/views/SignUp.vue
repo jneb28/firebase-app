@@ -1,9 +1,8 @@
 <template>
   <div class="signup">
     <v-layout row wrap justify-center>
-      <v-flex xs4 class="mr-4">
-
-        <h1>Sign Up</h1>
+      <v-flex xs4>
+        <h1>Add New User</h1>
         <form @submit.prevent="signUp" class="px-3 py-2">
           <v-text-field
           v-model.trim="$v.name.$model"
