@@ -82,10 +82,6 @@ import {
 export default {
   name: "signup",
 
-  props: [],
-
-  mixins: [validationMixin],
-
   validations: {
     name: { required, minLength: minLength(2), maxLength: maxLength(24) },
     email: { required, email },
