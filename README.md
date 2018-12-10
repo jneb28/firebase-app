@@ -19,3 +19,32 @@ npm run build
 ```
 npm run lint
 ```
+
+## Project Checklist
+#### 1. Conditional Logic
+See checkAuth() in App.vue
+#### 2. Single File Components 
+See "views" folder
+#### 3. Vue-CLI 
+I used Vue CLI 3 for this project.
+#### 4. Commit 4 days a week 
+See my [GitHub](https://github.com/jneb28) 
+#### 5. Communication
+See store.js for app communication
+#### 6. Form with Validation
+See SignUp.vue, Login.vue, and Dashboard.vue
+#### 7. Custom Directive
+I created the low-foot directive (see main.js) and used it on the App.vue footer to enhance styling
+#### 8. Animations
+See App.vue for fade animation transition tag (wrapping the router-view tag) 
+#### 9. HTTP Requests
+See store.js for http requests, also found in Dashboard.vue
+#### 10. 3 Routes
+See router.js
+#### 11. State Management
+See store.js for state management
+#### 12. Structure, Document, and Deploy
+The structure of my code is an ongoing process, however, the file structure is good.
+See my [GitHub repo](https://github.com/jneb28/josh-vue-final) for this project's documentation.
+This project was deployed using https://heuristic-lumiere-8d417f.netlify.com.
+
