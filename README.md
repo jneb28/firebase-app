@@ -38,7 +38,7 @@ I created the low-foot directive (see [main.js](https://github.com/jneb28/josh-v
 #### 8. Animations
 See [App.vue](https://github.com/jneb28/josh-vue-final/blob/master/src/App.vue) for fade animation transition tag (wrapping the router-view tag) 
 #### 9. HTTP Requests
-See [store.js](https://github.com/jneb28/josh-vue-final/blob/master/src/store.js) for http requests, also found in Dashboard.vue
+See [store.js](https://github.com/jneb28/josh-vue-final/blob/master/src/store.js) and [Dashboard.vue](https://github.com/jneb28/josh-vue-final/blob/master/src/views/Dashboard.vue) for http requests
 #### 10. 3 Routes
 See [router.js](https://github.com/jneb28/josh-vue-final/blob/master/src/router.js)
 #### 11. State Management
