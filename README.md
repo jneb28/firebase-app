@@ -1,4 +1,5 @@
 # josh-vue-firebase
+a vue app that uses firebase
 
 ## Project setup
 ```
