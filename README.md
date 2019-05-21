@@ -1,4 +1,4 @@
-# josh-vue-final
+# josh-vue-firebase
 
 ## Project setup
 ```
